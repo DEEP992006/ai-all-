@@ -1,6 +1,10 @@
 import express from "express";
 import { Socket, Server as SocketIOServer } from "socket.io";
 import { createServer } from "http";
+import { verifyToken } from "@clerk/backend";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // Initialize Express app and Socket.IO server
 const app = express();
@@ -29,12 +33,13 @@ interface messa{
     msg:string
 }
 
+
 // 🔌 Handle Socket.IO connections
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);
-  socket.emit("join", { message: "Connectvggggggggged to Socket.IO server" });
-
+  
   socket.on("join",async (data:messa) => {
+    socket.emit("join", { message: "Cover" });
     console.log(data);
   })
 });
