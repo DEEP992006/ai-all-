@@ -31,11 +31,19 @@ export default function ChatRoomPage() {
   // 💬 Messages state
   const [messages, setMessages] = useState<{ message: string; sender: string }[]>([])
   
+  // 🎨 Track client-side hydration to prevent mismatch
+  const [isClient, setIsClient] = useState(false)
+  
   // 📝 React Hook Form setup
   const { register, handleSubmit, reset } = useForm<{ message: string }>()
   
-  // 🏠 Current room info
-  const currentRoom = getChatRoom(roomId)
+  // 🏠 Current room info (only accessed on client)
+  const currentRoom = isClient ? getChatRoom(roomId) : null
+  
+  // 💧 Handle hydration
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   // 📧 Fetch user email by userId with caching
   const getUserEmail = async (userId: string) => {
@@ -139,7 +147,9 @@ export default function ChatRoomPage() {
             ← Back
           </button>
           <div>
-            <h1 className="text-xl font-bold">{currentRoom?.name || roomId}</h1>
+            <h1 className="text-xl font-bold">
+              {isClient && currentRoom?.name ? currentRoom.name : `Room ${roomId}`}
+            </h1>
             <p className="text-sm opacity-90">Room ID: {roomId}</p>
           </div>
         </div>

@@ -2,9 +2,10 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as schema from "./schema";
 
-// Create a singleton pool
+// 🗄️ Create a singleton pool
 let pool: Pool | null = null;
 
+// 🔌 Get or create database connection pool
 function getPool() {
   if (!pool) {
     const connectionString = process.env.DATABASE_URL;
@@ -16,8 +17,8 @@ function getPool() {
   return pool;
 }
 
-// Export the database client with schema
+// 📤 Export the database client with schema
 export const db = drizzle(getPool(), { schema });
 
-// Export for custom pool usage
+// 📤 Export for custom pool usage
 export { getPool };
