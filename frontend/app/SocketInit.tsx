@@ -17,6 +17,7 @@ export default function SocketInit() {
       const token = await getToken()
       if (token) connect(token)
     }
+console.log("success");
 
     init()
   }, [isSignedIn])
