@@ -11,6 +11,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { useSocketStore } from "@/store/socketStore";
+import { useNotificationListener } from "@/hooks/useNotificationListener";
 import "./globals.css";
 import SocketInit from "./SocketInit";
 
@@ -31,6 +32,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 🔔 Initialize global notification listener
+  useNotificationListener();
+  
   return (
     <ClerkProvider 
       signInForceRedirectUrl="/authsync"

@@ -1,5 +1,6 @@
 import { Socket } from "socket.io";
 import { registerChatHandlers } from "./chatHandler.js";
+import { registerNotificationHandlers } from "./notificationHandler.js";
 
 // 🔌 Main socket connection handler
 export const handleSocketConnection = (socket: Socket) => {
@@ -7,6 +8,7 @@ export const handleSocketConnection = (socket: Socket) => {
 
   // 📝 Register all feature handlers
   registerChatHandlers(socket);
+  registerNotificationHandlers(socket);
   // 🚀 Add more handlers here in the future:
   // registerVideoCallHandlers(socket);
   // registerGameHandlers(socket);

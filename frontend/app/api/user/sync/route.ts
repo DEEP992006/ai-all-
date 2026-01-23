@@ -1,7 +1,5 @@
-import { usersTable } from "@/db/schema";
-import { db } from "@/index";
-import { useAuth } from "@clerk/nextjs";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { usersTable, db } from "@repo/db";
+import { currentUser } from "@clerk/nextjs/server";
 
 export async function POST() {
 
@@ -22,7 +20,7 @@ export async function POST() {
 //   });
 console.log("\n\n\n\n",user.emailAddresses[0].emailAddress);
 
-const a =await db.insert(usersTable).values({"ClerkId":user.id,email:user.emailAddresses[0].emailAddress})
+const a = await db.insert(usersTable).values({ "ClerkId": user.id, email: user.emailAddresses[0].emailAddress })
 // console.log(a);
 
   return Response.json({ ok: true });
